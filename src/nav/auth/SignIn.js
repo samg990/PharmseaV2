@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import Toast from 'react-native-toast-message';
 
 import { Auth } from 'aws-amplify'
 
@@ -18,9 +19,29 @@ class SignIn extends Component {
     try {
       await Auth.signIn(username, password)
       console.log('successfully signed in')
+      Toast.show({
+        type: 'success',  
+        text1: 'Success', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,
+  
+});
+      
       this.props.updateAuth('MainNav')
     } catch (err) {
       console.log('error signing in...', err)
+      Toast.show({
+        type: 'error',  
+        text1: 'Invalid Login', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,
+  
+});
+      
     }
   }
   showForgotPassword = () => {

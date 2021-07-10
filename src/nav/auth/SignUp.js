@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import { View, StyleSheet } from 'react-native'
+import Toast from 'react-native-toast-message';
 
 import { Input, ActionButton } from '../../components'
 import { Auth } from 'aws-amplify'
@@ -23,9 +24,38 @@ class SignIn extends Component {
     try {
       await Auth.signUp({ username, password, attributes: { email }})
       console.log('successful sign up..')
+      Toast.show({
+        type: 'success',  
+        text1: 'Success', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,
+  
+});
       this.setState({ stage: 1 })
     } catch (err) {
       console.log('error signing up...', err)
+      if(err.message === 'User already exists'){
+        Toast.show({
+        type: 'error',  
+        text1: 'User Already Exists', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,  
+        });
+      }else if (err.code == "InvalidPasswordException"){
+        Toast.show({
+        type: 'error',  
+        text1: 'Invalid Password',
+        text2: 'Password not long enough',
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,  
+        });
+      }
     }
   }
   confirmSignUp = async () => {
@@ -33,8 +63,27 @@ class SignIn extends Component {
     try {
       await Auth.confirmSignUp(username, authCode)
       this.props.toggleAuthType('showSignIn')
+      Toast.show({
+        type: 'success',  
+        text1: 'Success', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,  
+        });
+      
     } catch (err) {
       console.log('error signing up...', err)
+      if(err.code === 'CodeMismatchException'){
+        Toast.show({
+        type: 'error',  
+        text1: 'Invalid Code', 
+        visibilityTime: 2000,
+        autoHide: true,
+        topOffset: 30,
+        bottomOffset: 40,  
+        });
+      }
     }
   }
   render() {
@@ -84,6 +133,7 @@ class SignIn extends Component {
               <ActionButton
                 title='Confirm Sign Up'
                 onPress={this.confirmSignUp}
+                
               />
             </Fragment>
           )

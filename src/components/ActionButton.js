@@ -9,7 +9,7 @@ const ActionButton = ({
   <TouchableHighlight
     onPress={onPress}
     style={styles.buttonContainer}
-    underlayColor='#ffbf2d'
+    underlayColor='#05e3d0'
   >
     <View style={styles.button}>
       <Text style={styles.buttonText}>{title}</Text>
@@ -19,7 +19,7 @@ const ActionButton = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: '#ffb100',
+    backgroundColor: '#018f83',
     borderRadius: 25
   },
   button: {

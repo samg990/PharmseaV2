@@ -31,8 +31,8 @@ class Auth extends React.Component {
             resizeMode='contain'
             source={require("../../assets/amplify.png")}
           />
-          <Text style={styles.title}>AWS Amplify</Text>
-          <Text style={styles.subtitle}>React Native Auth Starter</Text>
+          <Text style={styles.title}>PharmSea</Text>
+          <Text style={styles.subtitle}>Making....</Text>
           { showSignIn && (
             <SignIn
               toggleAuthType={this.toggleAuthType}
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   bottomMessageHighlight: {
-    color: '#f4a63b',
+    color: '#00c257',
     paddingLeft: 10
   }
 })
